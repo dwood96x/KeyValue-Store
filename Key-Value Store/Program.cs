@@ -25,11 +25,32 @@ namespace Key_Value_Store
     }
     class MyDictionary
     {
-        private KeyValue[] keys = new KeyValue[100];
+        private KeyValue[] keys = new KeyValue[50];
         private int NumOfKeys = 0;
-    }
-    class KeySystem
-    {
-        //IDK if this indexer belongs here
+
+        public object this[string key]
+        {
+            set
+            {
+                for (int i = 0; i < keys.Length; i++)
+                {
+                    if (keys[i].key == key)
+                    {
+                        keys[i].key = Console.ReadLine();
+                    }
+                }
+            }
+            get
+            {
+                for (int i = 0; i < keys.Length; i++)
+                {
+                    if (keys[i].key == key)
+                    {
+                        return keys[i].value;
+                    }
+                }
+                throw new KeyNotFoundException();
+            }
+        }
     }
 }
