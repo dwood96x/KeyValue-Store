@@ -10,7 +10,18 @@ namespace Key_Value_Store
     {
         static void Main(string[] args)
         {
-
+            var d = new MyDictionary();
+            try
+            {
+                Console.WriteLine(d["Cats"]);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            d["Cats"] = 42;
+            d["Dogs"] = 17;
+            Console.WriteLine($"{(int)d["Cats"]}, {(int)d["Dogs"]}");
         }
     }
     struct KeyValue
@@ -32,12 +43,19 @@ namespace Key_Value_Store
         {
             set
             {
+                bool exist = false;
                 for (int i = 0; i < keys.Length; i++)
                 {
                     if (keys[i].key == key)
                     {
-                        keys[i].key = Console.ReadLine();
+                        keys[i] = new KeyValue(key, keys[i].value);
+                        exist = true;
                     }
+                }
+                if (exist == false)
+                {
+                    keys[NumOfKeys] = new KeyValue(key, value);
+                    NumOfKeys += 1;
                 }
             }
             get
